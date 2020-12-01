@@ -1,0 +1,99 @@
+<mat-toolbar color="primary">
+    <span>Bitcoin Order Form</span>
+</mat-toolbar>
+
+    <form [formGroup]="orderForm" (ngSubmit)="onFormSubmit()">
+        <div class="row mt-3">
+
+        <div class="col">
+
+            <p>
+                <mat-form-field appearance="legacy">
+                    <mat-label class="text-secondary">Name</mat-label>
+                    <input matInput type="text" formControlName="name" placeholder="Placeholder">
+                    <mat-hint>Please enter your name</mat-hint>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field appearance="legacy">
+                    <mat-label class="text-secondary">Contact No.</mat-label>
+                    <input matInput type="text" formControlName="contact" placeholder="Placeholder">
+                    <mat-hint>Please enter Singapore number</mat-hint>
+                    <mat-error *ngIf="orderForm.get('contact').hasError('pattern')">Only 0-9 ( + - ) allowed</mat-error>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-label class="text-secondary">Gender:</mat-label><br>
+                <mat-radio-group aria-label="Select an option" formControlName="gender">
+                    <mat-radio-button value="male">Male&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
+                    <mat-radio-button value="female">Female</mat-radio-button>
+                </mat-radio-group>
+            </p>
+
+            <p>
+                <mat-form-field>
+                    <mat-label class="text-secondary">Date of Birth</mat-label>
+                    <input matInput [matDatepicker]="picker1" formControlName="dateOfBirth" [max]="ageLimit">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                    <mat-hint>Please select date of birth (21 years old and above)</mat-hint>
+                </mat-form-field>
+            </p>
+
+                        
+            <p>
+                <mat-form-field>
+                    <mat-label class="text-secondary">Order Date</mat-label>
+                    <input matInput [matDatepicker]="picker2" formControlName="orderDate" [min]="todayDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                    <mat-hint>Please select order date</mat-hint>
+                </mat-form-field>
+            </p>
+        
+        <!-- </div>
+        <div class="col-6"> -->
+
+
+            <p>
+                <mat-form-field appearance="legacy">
+                    <mat-label class="text-secondary">Order Type</mat-label>
+                    <mat-select formControlName="orderType">
+                    <mat-option value="buy">Buy</mat-option>
+                    <mat-option value="sell">Sell</mat-option>
+                    </mat-select>
+                    <mat-hint>Please select order type</mat-hint>
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field appearance="legacy">
+                    <mat-label class="text-secondary">Order Unit</mat-label>
+                    <input matInput type="text" formControlName="orderUnit" placeholder="Placeholder" (input)="onUnitChange()">
+                    <mat-hint>Please enter number of unit</mat-hint>
+                    <mat-error *ngIf="orderForm.get('orderUnit').hasError('pattern')">Only number allowed</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-list role="list">
+                    <mat-label class="text-secondary">Cryptocurrency</mat-label>  
+                    <mat-list-item>{{price}} ({{cryptocurrencyPair}})</mat-list-item>
+                </mat-list>
+            </p>
+
+            <p>
+                <mat-list role="list">
+                    <mat-label class="text-secondary">Total Amount (SGD)</mat-label>  
+                    <mat-list-item> SGD: {{totalAmount}}</mat-list-item>
+                </mat-list>
+            </p>
+
+            <div class="button-row">
+                <button mat-raised-button color="primary" type="submit" [disabled]="orderForm.invalid">Submit</button>
+                <button mat-raised-button color="accent" type="reset" (click)="onFormReset()" [disabled]="orderForm.untouched">Reset</button>
+            </div>
+        </div>
+    </div>
+    </form>

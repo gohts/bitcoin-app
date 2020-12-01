@@ -1,0 +1,94 @@
+<mat-toolbar color="primary">
+    <span>Bitcoin Order Confirmation</span>
+</mat-toolbar>
+
+<div class="row mt-3" *ngIf="formData">
+    <div class="col">
+        <mat-list role="list">
+            <mat-list-item>
+                <span class="text-primary font-weight-bold">Name: &nbsp;</span>{{formData.name}}
+            </mat-list-item>
+            <mat-list-item>
+                <span class="text-primary font-weight-bold">Contact: &nbsp;</span>{{formData.contact}}
+            </mat-list-item>
+            <mat-list-item>
+                <span class="text-primary font-weight-bold">Gender: &nbsp;</span>{{formData.gender}}
+            </mat-list-item>
+            <mat-list-item>
+                <span class="text-primary font-weight-bold">Date of Birth: &nbsp;</span>{{formData.dateOfBirth}}
+            </mat-list-item>
+        </mat-list>
+
+        <mat-list role="list">
+            <mat-list-item>
+                <span class="text-primary font-weight-bold">Order Date: &nbsp;</span>{{formData.orderDate}}
+            </mat-list-item>
+            <mat-list-item>
+                <span class="text-primary font-weight-bold">Order Type: &nbsp;</span>{{formData.orderType}}
+            </mat-list-item>
+            <mat-list-item>
+                <span class="text-primary font-weight-bold">Order Unit: &nbsp;</span>{{formData.orderUnit}}
+            </mat-list-item>
+            <mat-list-item>
+                <span class="text-primary font-weight-bold">Price: &nbsp;</span>{{formData.price}} (SGD/BTC)
+            </mat-list-item>
+            <mat-list-item>
+                <span class="text-primary font-weight-bold">Total Amount: &nbsp;</span>{{formData.totalAmount}}
+            </mat-list-item>
+        </mat-list>
+
+
+        <mat-list role="list" *ngIf="formData.orderType === 'buy'">
+            <mat-label class="text-primary font-weight-bold">Buy</mat-label>  
+            <ngx-qrcode 
+                [elementType]="elementType" 
+                [value]="value"
+                cssClass="aclass"
+                errorCorrectionLevel="L">
+            </ngx-qrcode>
+            <mat-hint>Once the SGD funds are wire across we will send you the bitcoin to your wallet address.</mat-hint>
+        </mat-list>
+
+        <mat-list role="list" *ngIf="formData.orderType === 'sell'">
+            <mat-label class="text-primary font-weight-bold">Sell</mat-label>  
+            <mat-list-item>{{bitcoinAddress}}</mat-list-item>
+            <mat-hint>Once the BTC are wire across we will send you the SGD funds to your Paynow/Paylah bank account.</mat-hint>
+        </mat-list>
+    </div>
+</div>
+
+<div class="row mt-3" *ngIf="!formData">
+    <div class="col">
+        <mat-list role="list">
+            <mat-label class="text-primary font-weight-bold">No form data submitted</mat-label>  
+        </mat-list>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col">
+        <button mat-raised-button color="primary" type="button" (click)="routeToHome()">Back</button>
+    </div>
+</div>
+
+
+<!-- <p *ngIf="orderForm.valid && orderTypeSell">
+    <mat-list role="list">
+    <mat-label class="text-primary font-weight-bold">This is your Payment QR Code</mat-label>
+    <div>
+        <ngx-qrcode 
+            [elementType]="QRelementType" 
+            [value]="QRvalue"
+            cssClass="aclass"
+            errorCorrectionLevel="L">
+    </ngx-qrcode>
+    </div>
+</mat-list>
+</p>
+
+<p *ngIf="orderForm.valid && !orderTypeSell">
+    <mat-list role="list">
+    <mat-label class="text-primary font-weight-bold">This is your Bitcoin Address</mat-label>
+    <mat-list-item>{{bitcoinAddress}}</mat-list-item>
+</mat-list>
+</p> -->

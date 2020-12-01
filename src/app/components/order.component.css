@@ -1,0 +1,21 @@
+.sec {
+    border-width: 2px;
+}
+
+button {
+    margin-right: 2rem;
+}
+
+mat-form-field {
+    width: 40%;
+    margin-bottom: 1rem;
+}
+
+mat-radio-group {
+    width: 40%;
+    margin-bottom: 1rem;
+}
+
+mat-radio-button {
+    margin-right: 5rem
+}
